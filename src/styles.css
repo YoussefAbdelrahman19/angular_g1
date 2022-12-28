@@ -1,0 +1,7 @@
+/* You can add global styles to this file, and also import other style files */
+p{
+  color: green;
+  text-shadow: 1cm;
+  font-weight: 500 !important;
+  font-size: large;
+}

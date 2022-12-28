@@ -1,0 +1,63 @@
+<p style="padding-top: 10px">.</p>
+<p>Products</p>
+
+<table class="table border border-1 border-info table-bordered table-active">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Product Image</th>
+    </tr>
+  </thead>
+  <tbody class="p-5">
+    <ng-container
+      *ngFor="let item of prdList; let i = index; trackBy: productsTrackBy"
+    >
+      <tr class="border border-1 border-primary pt-5">
+        <th scope="row">{{ item.id }} or {{ i + 1 }}</th>
+        <td [style.color]="item.price > 30000 ? 'red' : 'green'">
+          {{ item.name }}
+        </td>
+        <td
+          [ngStyle]="{
+            'background-color': item.price > 20 ? 'gray' : 'green',
+            color: item.price > 30000 ? 'red' : 'white'
+          }"
+          [ngClass]="{
+            'text-danger': item.quantity > 0 && item.quantity < 12,
+            'text-bold': item.quantity > 12,
+            'bg-dark': item.quantity > 12
+          }"
+        >
+          {{ item.price | usdToEgy : 0.1 | currency : "EGP" }}
+          {{ todayDate | date }}
+        </td>
+
+        <!-- <td
+          [class.text-danger]="item.quantity != 0"
+          [class.text-info]="item.quantity == 0"
+          *ngIf="item.quantity != 0; else outOfStock"
+        >
+          {{ item.quantity }}
+        </td>  -->
+        <td LightBox highLightedColor="yellow">
+          <ng-container [ngSwitch]="item.quantity">
+            <p *ngSwitchCase="0">Out of Stock</p>
+            <p *ngSwitchCase="1">One Item</p>
+            <p *ngSwitchDefault>{{ item.quantity }}</p>
+          </ng-container>
+        </td>
+
+        <!-- <ng-template #outOfStock>
+          <label [class.text-info]="item.quantity == 0">
+            Out Of Stock.</label
+          ></ng-template
+        > -->
+
+        <td><img LightBox [src]="item.imgUrl" alt="Product Img" /></td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
